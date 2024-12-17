@@ -1,36 +1,46 @@
 ---
-import '../styles/global.css'
-import Navigation from '../components/Navigation.astro'
-import Footer from '../components/Footer.astro'
-
-const pageTitle = "About me"
+import BaseLayout from '../layouts/baseLayout.astro';
+const pageTitle = "About me";
 
 const identity = {
-  firstName: "Opitmus Prime",
-  constry: "France",
-  occupations: "Chomeur",
-  hobbies: ["coding", "eating", "play ds3"],
-}
+    firstName: "Opitmus Prime",
+    constry: "France",
+    occupations: "Chomeur",
+    hobbies: ["coding", "eating", "play ds3"],
+    }
 
-const skills = ["math", "playing ds3", "HTML", "CSS", "JS"]
+    const skills = ["math", "playing ds3", "HTML", "CSS", "JS"]
 
-const happy = true
-const finished = false
-const goal = 3
+    const happy = true
+    const finished = false
+    const goal = 3
 
-const skillColor = "navy"
-const fontWeight = "bold"
-const textCase = "uppercase"
+    const skillColor = "navy"
+    const fontWeight = "bold"
+    const textCase = "uppercase"
+    
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-    <style define:vars={{skillColor, fontWeight, textCase}}>
+<BaseLayout pageTitle={pageTitle}>
+      <h1>About Astro</h1>
+      <p>hello your computer as virus</p>
+      <p>some fact about me: </p>
+      <ul>
+        <li>my name is {identity.firstName}</li>
+        <li>I live in {identity.constry}</li>
+        {identity.hobbies.length >= 2 &&
+        <li>two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+        }
+      </ul>
+      <p>My skills are: </p>
+      <ul>
+        {skills.map((skill) =><li class="skill">{skill}</li>)}
+      </ul>
+      {happy && <p>I am happy to be learning Astro!</p>}
+  
+      {finished && <p>I finished this tutorial!</p>}
+  
+      {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+    <style is:global define:vars={{skillColor, fontWeight, textCase}}>
       h1 {
         color: purple;
         font-size: 4rem;
@@ -41,29 +51,4 @@ const textCase = "uppercase"
         text-transform: var(--textCase);
       }
     </style>
-	</head>
-	<body>
-    <Navigation />
-		<h1>{pageTitle}</h1>
-    <h1>About Astro</h1>
-    <p>hello your computer as virus</p>
-    <p>some fact about me: </p>
-    <ul>
-      <li>my name is {identity.firstName}</li>
-      <li>I live in {identity.constry}</li>
-      {identity.hobbies.length >= 2 &&
-      <li>two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-      }
-    </ul>
-    <p>My skills are: </p>
-    <ul>
-      {skills.map((skill) =><li class="skill">{skill}</li>)}
-    </ul>
-    {happy && <p>I am happy to be learning Astro!</p>}
-
-    {finished && <p>I finished this tutorial!</p>}
-
-    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
-    <Footer />
-	</body>
-</html>
+</BaseLayout>
